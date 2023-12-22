@@ -50,9 +50,9 @@ bool canpush(char newoper, list_stack<char>& stack)//判断新符号是否可以入栈
 
 //  参数一为 传入的表达式字符数组  参数二为转换后的字符数组
 //char*传入的参数只能读取，数组名[] 传入的可读可写
-char* frofix_to_backfix_exp(char* frofix, char backfix[])
+void frofix_to_backfix_exp(std::string &frofix, std::string &backfix)
 {
-	int len = strlen(frofix);//计算字符串长度
+	int len = frofix.size();//计算字符串长度
 	//std::shared_ptr<char[]>backfix1(new char[100 * len + 200]);
 	//backfix = new char[100 * len + 200];//防止内存溢出
 	//backfix = (char*)backfix1;
@@ -133,7 +133,7 @@ char* frofix_to_backfix_exp(char* frofix, char backfix[])
 		//std::cout << *backfix << std::endl;
 		stack_oper.pop();
 	}
-	return backfix;
+	//return backfix;
 }
 
 bool isnumber(char x)//判断是否是数字
@@ -186,9 +186,9 @@ double calculate(char op, double m, double n)//分部计算
 //
 //3、重复以上步骤直至遍历完成后缀表达式，最后栈中的数据就是中缀表达式的计算结果。
 
-double calculateback(char* lastexp)//计算后缀表达式
+double calculateback(std::string lastexp)//计算后缀表达式
 {
-	int len = strlen(lastexp);
+	int len = lastexp.size();
 	char temp=' ';
 	list_stack<double> nums;//存放数据
 	
@@ -266,9 +266,9 @@ double calculateback(char* lastexp)//计算后缀表达式
 }
 
 
-bool islegalexpression(char* infixexp)//判断表达式是否合法
+bool islegalexpression(std::string infixexp)//判断表达式是否合法
 {
-	if (infixexp == NULL)
+	if (infixexp == " ")
 	{
 		std::cout << "islegalexpression表达式不存在" << std::endl;
 	}
@@ -282,13 +282,13 @@ bool islegalexpression(char* infixexp)//判断表达式是否合法
 
 }
 
-bool checkexpression(char* infixexp)//逐字符扫描检查表达式
+bool checkexpression(std::string infixexp)//逐字符扫描检查表达式
 {
 	bool nonumber = true;//没有数字标志
 	//先判断第一个元素
 
 	if (infixexp[0] != '(' && !isnumber(infixexp[0]) && infixexp[0] != '-')return false;
-	int len = strlen(infixexp);
+	int len = infixexp.size();
 	//遍历后续元素
 	for (int j = 0; j < len; j++)//如果运行到此处，没有调用上述函数，证明第一个格式没问题，再进行常规判断
 	{
@@ -318,10 +318,10 @@ bool checkexpression(char* infixexp)//逐字符扫描检查表达式
 	return true;
 }
 
-bool checkbrackets(char* infixexp)//检查括号是否匹配
+bool checkbrackets(std::string infixexp)//检查括号是否匹配
 {
 	list_stack<char> stack_bra;
-	int len = strlen(infixexp);
+	int len = infixexp.size();
 	for (int j = 0; j < len; j++)
 	{
 		char temp = infixexp[j];
@@ -355,7 +355,7 @@ bool isbasicoper(char i)//检查是否是加减乘除基本运算
 
 
 
-bool isnegative(char* infixexp, int pos)//判断是否是负号而不是减号  参数一字符串，参数二 索引  改进部分
+bool isnegative(std::string infixexp, int pos)//判断是否是负号而不是减号  参数一字符串，参数二 索引  改进部分
 {
 	if (infixexp[pos] == '-')//若为负号有两种可能
 	{

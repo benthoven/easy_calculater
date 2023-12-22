@@ -5,21 +5,21 @@
 
 int main()
 {
-	/* char str[] = "2 3 5 + * 7 1 / + 4 -";
-	double d=calculateback(str);
-	std::cout << d << std::endl;*/
+	//std::string str = "2 3 5 + * 7 1 / + 4 -";
 	
-	char infixexp[] = "2*(3+5)+7/1-4";
-	char sufixexp[25];
+	
+	std::string infixexp = "2*(5+3)+7/1-4";
+	std::string sufixexp;
+	sufixexp.resize(100);// = "   //Ô¤Áô¿Õ¼ä£¬±ÜÃâÔ½½ç ";
+	 frofix_to_backfix_exp(infixexp, sufixexp);
 
-
-	char* b = frofix_to_backfix_exp(infixexp, sufixexp);
-	int len = strlen(b);
-	std::cout << *b;
-	for (int i = 0; i < len; i++)
+	double d=calculateback(sufixexp);
+	std::cout << d << std::endl;
+	//std::cout << sufixexp;
+	/*for (int i = 0; i < 100; i++)
 	{
-		std::cout << sufixexp[i] ;
-	}
+		std::cout << sufixexp.at(i) ;
+	}*/
 	
 
 	
